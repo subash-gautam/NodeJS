@@ -3,14 +3,14 @@ const app = express();
 
 app.get("", (req, res) => {
     const name = req.query.name;
-    res.send(
-        "<h1>Hello, this is home page... </h1>Data(?name: ....) sent is " + name
-    );
-    // console.log(req.query)
+    res.send("<h1>Hello, this is home page... </h1>Data sent is " + name);
+    console.log(req.query);
 });
 
 app.get("/about", (req, res) => {
     res.send("<h1>Hello This is about page.</h1>");
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log("App listening on port 3000.");
+});
