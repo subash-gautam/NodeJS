@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 
+// application specific middleware : used to process requests for the entire application and is registered using the app. use() method
 const reqFilter = (req, resp, next) => {
     if (!req.query.age) resp.send("<h1>Provie age plese....");
     else if (req.query.age < 18) resp.send("<h1>You might be under aged....");
@@ -21,6 +22,7 @@ app.listen(5000, () => {
     console.log("Port = 5000");
 });
 
+// copied code
 /*const express = require("express");
 const app = express();
 const reqFilter = (req, resp, next) => {
