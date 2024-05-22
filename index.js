@@ -12,23 +12,24 @@ app.get("", (_, resp) => {
 
 app.get("/profile", (_, resp) => {
     const user = {
-        name: "Peter",
-        email: "peter@test.com",
-        country: "USA",
+        name: "Ud Gautam",
+        email: "admin@subashgtm.com.np",
+        country: "Nepal",
+        skills: ["HTML", "CSS", "JavaScript", "C", "C++", "React", "Node JS"],
     };
     resp.render("profile", { user });
 });
 
-app.get("/contact", (_, resp) => {
+app.get("/", (_, resp) => {
+    resp.sendFile(`${publicPath}/index.html`);
+});
+
+app.get("/about", (_, resp) => {
     resp.sendFile(`${publicPath}/about.html`);
 });
 
-app.get("/help", (_, resp) => {
-    resp.sendFile(`${publicPath}/help.html`);
-});
-
 app.get("*", (_, resp) => {
-    resp.sendFile(`${publicPath}/nopage.html`);
+    resp.sendFile(`${publicPath}/404.html`);
 });
 
 app.listen(4000, () => {

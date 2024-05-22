@@ -2,8 +2,26 @@
 <html lang="en">
     <head>
         <title>Profile</title>
+        <style>
+            h1 {
+                color: orange;
+            }
+            body {
+                background-color: aqua;
+            }
+        </style>
     </head>
     <body>
+        <%- include('common/nav') %>
         <h1>this could be profile.</h1>
+        <h2>User : <%= user.name %></h2>
+        <h3>Email : <%= user.email %></h3>
+        <h3>Country : <%= user.country %></h3>
+        <h4>SKILLS :</h4>
+        <ul>
+            <% user.skills.forEach ((item)=> { %>
+            <li><%= item%></li>
+            <% }) %>
+        </ul>
     </body>
 </html>
