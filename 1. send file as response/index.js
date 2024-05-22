@@ -17,4 +17,6 @@ app.get("*", (req, resp) => {
     resp.sendFile(`${publicPath}/404.html`);
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log("Port listening at 3000");
+});
