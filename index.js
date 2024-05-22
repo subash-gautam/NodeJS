@@ -1,22 +1,37 @@
 const express = require("express");
+const path = require("path");
+
 const app = express();
-const reqFilter = (req, resp, next) => {
-    if (!req.query.age) {
-        resp.send("Please provide your age");
-    } else if (req.query.age < 18) {
-        resp.send("You are under aged");
-    } else {
-        next();
-    }
-};
+const publicPath = path.join(__dirname, "public");
 
-app.use(reqFilter);
+app.set("view engine", "ejs");
 
-app.get("/", (res, resp) => {
-    resp.send("Welcome to Home page");
+app.get("", (_, resp) => {
+    resp.sendFile(`${publicPath}/index.html`);
 });
 
-app.get("/users", (res, resp) => {
-    resp.send("Welcome to Users page");
+app.get("/profile", (_, resp) => {
+    const user = {
+        name: "Ud Gautam",
+        email: "admin@subashgtm.com.np",
+        country: "Nepal",
+        skills: ["HTML", "CSS", "JavaScript", "C", "C++", "React", "Node JS"],
+    };
+    resp.render("profile", { user });
 });
-app.listen(5000);
+
+app.get("/", (_, resp) => {
+    resp.sendFile(`${publicPath}/index.html`);
+});
+
+app.get("/about", (_, resp) => {
+    resp.sendFile(`${publicPath}/about.html`);
+});
+
+app.get("*", (_, resp) => {
+    resp.sendFile(`${publicPath}/404.html`);
+});
+
+app.listen(4000, () => {
+    console.log("Port is 4000");
+});
