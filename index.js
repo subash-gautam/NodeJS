@@ -1,4 +1,4 @@
-const dbConnet = require("./mongodb.js");
+const dbConnet = require("./mongoDb.js");
 
 // // Non recommened way : without making functon
 // dbConnet().then((resp) => {
