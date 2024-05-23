@@ -1,14 +1,5 @@
-const { MongoClient } = require("mongodb");
-const url = "mongodb://localhost:27017";
-const client = new MongoClient(url);
+const dbConnet = require("./mongodb.js");
 
-async function dbConnet() {
-    let result = await client.connect();
-    let db = result.db("learn");
-    return db.collection("lrn");
-    // let response = await collection.find({}).toArray();
-    // console.log(response);
-}
 // // Non recommened way : without making functon
 // dbConnet().then((resp) => {
 //     resp.find()
