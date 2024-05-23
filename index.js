@@ -1,25 +1,14 @@
-const express = require("express");
-const reqFilter = require("./middleware");
-const app = express();
-const route = express.Router();
+const { MongoClient } = require("mongodb");
+const url = "mongodb://localhost:27017";
+const client = new MongoClient(url);
 
-// app.use(reqFilter);
-route.use(reqFilter);
-app.get("/", (req, resp) => {
-    resp.send("<h1> Welcome to home page....");
-});
-app.get("/about", (req, resp) => {
-    resp.send("<h1> I can not say about me rn....");
-});
-route.get("/contact", (req, resp) => {
-    resp.send("<h1> Welcome, You are allowed to visit this page...");
-});
+async function getData() {
+    let result = await client.connect();
+    let db = result.db("learn");
+    let collection = db.collection("lrn");
+    let response = await collection.find({}).toArray();
+    console.log(response);
+}
 
-route.get("/main", (req, resp) => {
-    resp.send("<h1> Welcome to main page...");
-});
-
-app.use("/", route);
-app.listen(5000, () => {
-    console.log("Port = 5000");
-});
+getData();
+console.log("la hai");
