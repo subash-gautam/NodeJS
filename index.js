@@ -12,7 +12,7 @@ const dbConnet = require("./mongoDb.js");
 // recommend way : making functon
 const main = async () => {
     let data = await dbConnet();
-    data = await data.find().toArray();
+    data = await data.find(/*filter here */).toArray();
     console.log(data);
 };
 
