@@ -5,12 +5,14 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/search/:name", async (req, resp) => {
-    console.log(req.params.name);
-    // let items = await Data.find(req.params) //same thing as below.
+app.get("/search/:key", async (req, resp) => {
     let items = await Data.find({
-        name: req.params.name,
+        $or: [
+            { name: { $regex: req.params.key } },
+            // { age: { $regex: req.params.key } },// can search over multiple fields values
+        ],
     });
+
     resp.send(items);
 });
 
