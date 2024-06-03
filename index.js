@@ -1,21 +1,21 @@
 const express = require("express");
-require("./config");
-const Data = require("./data");
+const multer = require("multer");
+
 const app = express();
 
-app.use(express.json());
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, "./uploads");
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + "-" + Date.now() + ".jpg");
+        },
+    }),
+}).single("file_name");
 
-app.get("/search/:key", async (req, resp) => {
-    let items = await Data.find({
-        $or: [
-            { name: { $regex: req.params.key } },
-            // { age: { $regex: req.params.key } },// can search over multiple fields values
-        ],
-    });
-
-    resp.send(items);
+app.post("/upload", upload, (req, resp) => {
+    resp.send("file uploaded");
 });
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
-});
+app.listen(5000);
