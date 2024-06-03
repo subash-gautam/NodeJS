@@ -1,8 +1,26 @@
-const os = require("os");
-// console.log(os); // Complete infos about Operating system
-console.log(os.arch()); // 32 or 64 bit?
-console.log(os.freemem()); // free ram in bits
-console.log(os.freemem() / Math.pow(1024, 3)); // free ram in GB
-console.log(os.hostname());
-console.log(os.platform());
-console.log(os.userInfo());
+const express = require("express");
+const EventEnitter = require("events");
+const app = express();
+
+const event = new EventEnitter();
+
+let count = 0;
+event.on("api call", () => {
+    count++;
+    console.log("Api called..." + count + " times.");
+});
+app.get("/", (req, resp) => {
+    resp.send("API calling...");
+    event.emit("api call");
+});
+app.get("/get1", (req, resp) => {
+    resp.send("API calling...");
+    event.emit("api call");
+});
+app.get("/getting2", (req, resp) => {
+    resp.send("API calling...");
+    event.emit("api call");
+});
+app.listen(3500, () => {
+    console.log("Listening at post 3500.....");
+});
