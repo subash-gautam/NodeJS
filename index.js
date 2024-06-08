@@ -1,26 +1,18 @@
-const express = require("express");
-const EventEnitter = require("events");
-const app = express();
+const mysql = require("mysql");
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "test",
+});
 
-const event = new EventEnitter();
+// Check if connected or not ?
+con.connect((err) => {
+    if (!err) console.log("Connected Successfully");
+    else console.log("Error encountered: ", err);
+});
 
-let count = 0;
-event.on("api call", () => {
-    count++;
-    console.log("Api called..." + count + " times.");
-});
-app.get("/", (req, resp) => {
-    resp.send("API calling...");
-    event.emit("api call");
-});
-app.get("/get1", (req, resp) => {
-    resp.send("API calling...");
-    event.emit("api call");
-});
-app.get("/getting2", (req, resp) => {
-    resp.send("API calling...");
-    event.emit("api call");
-});
-app.listen(3500, () => {
-    console.log("Listening at post 3500.....");
+con.query("SELECT * FROM users", (err, result) => {
+    if (!err) console.log(result);
+    else console.log(err);
 });
