@@ -22,8 +22,8 @@ app.post("/", (req, resp) => {
 });
 
 // update data of sql database
-app.put("/", (req, resp) => {
-    const data = [req.body.name, req.body.age, req.body.address, req.body.id];
+app.put("/:id", (req, resp) => {
+    const data = [req.body.name, req.body.age, req.body.address, req.params.id];
     con.query(
         "UPDATE users SET name=?, age =?, address =? WHERE ID=?",
         data,
