@@ -35,7 +35,16 @@ app.put("/:id", (req, resp) => {
 });
 
 // delete data from sql database
-app.delete("/", (req, resp) => {
-    const data = req.body;
+app.delete("/:id", (req, resp) => {
+    con.query(
+        "DELETE FROM users WHERE id=?",
+        req.params.id,
+        (err, result, fields) => {
+            // if (!err) resp.send(result);
+            // else console.log(err);
+            if (err) throw err;
+            resp.send(result);
+        }
+    );
 });
 app.listen(port, () => console.log(`Listening to port ${port}`));
